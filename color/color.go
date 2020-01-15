@@ -40,11 +40,12 @@ type Color interface {
 
 func FromColor(c color.Color) Color {
 	r, g, b, a := c.RGBA()
+	// Convert 16 bits channel to 8 bits
 	return RGB{
-		R: uint8(r),
-		G: uint8(g),
-		B: uint8(b),
-		A: uint8(a),
+		R: uint8(r >> 8),
+		G: uint8(g >> 8),
+		B: uint8(b >> 8),
+		A: uint8(a >> 8),
 	}
 }
 

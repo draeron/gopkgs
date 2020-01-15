@@ -1,9 +1,9 @@
 package geo
 
 import (
+	"github.com/draeron/gopkg/logger"
 	"github.com/fogleman/gg"
 	"github.com/twpayne/go-geom"
-	"github.com/draeron/gopkg/logger"
 )
 
 type Geometry interface {

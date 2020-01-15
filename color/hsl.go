@@ -13,14 +13,6 @@ func (l HSL) IsSame(r HSL) bool {
 	return l.H == r.H && l.L == r.L && l.S == r.S
 }
 
-func FromF1(h, s, l uint8) HSV {
-	return HSV{
-		H: uint16(math.Round(float64(h) / 128. * 360)),
-		S: uint8(math.Round(float64(s) / 128. * 100)),
-		V: uint8(math.Round(float64(l) / 128. * 100)),
-	}
-}
-
 func (c HSL) Equal(col Color) bool {
 	return c.RGB().Equal(col)
 }
