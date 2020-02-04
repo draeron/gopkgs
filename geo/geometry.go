@@ -1,7 +1,7 @@
 package geo
 
 import (
-	"github.com/draeron/gopkg/logger"
+	"github.com/draeron/gopkgs/logger"
 	"github.com/fogleman/gg"
 	"github.com/twpayne/go-geom"
 )

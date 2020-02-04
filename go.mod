@@ -1,4 +1,4 @@
-module github.com/draeron/gopkg
+module github.com/draeron/gopkgs
 
 go 1.13
 

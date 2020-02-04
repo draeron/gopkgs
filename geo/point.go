@@ -1,7 +1,7 @@
 package geo
 
 import (
-	"github.com/draeron/gopkg/color"
+	"github.com/draeron/gopkgs/color"
 	"github.com/fogleman/gg"
 	"github.com/twpayne/go-geom"
 	"github.com/twpayne/go-geom/xy"

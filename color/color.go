@@ -1,7 +1,7 @@
 package color
 
 import (
-	"github.com/draeron/gopkg/logger"
+	"github.com/draeron/gopkgs/logger"
 	"image/color"
 )
 
