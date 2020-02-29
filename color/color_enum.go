@@ -43,9 +43,11 @@ const (
 	Gray
 	// DarkGray is a PaletteColor of type DarkGray
 	DarkGray
+	// Transparent is a PaletteColor of type Transparent
+	Transparent
 )
 
-const _PaletteColorName = "RedOrangeYellowYellowGreenGreenCyanGreenCyanCyanBlueBluePurpleMagentaMagentaRedWhiteBlackLightGrayGrayDarkGray"
+const _PaletteColorName = "RedOrangeYellowYellowGreenGreenCyanGreenCyanCyanBlueBluePurpleMagentaMagentaRedWhiteBlackLightGrayGrayDarkGrayTransparent"
 
 var _PaletteColorNames = []string{
 	_PaletteColorName[0:3],
@@ -65,6 +67,7 @@ var _PaletteColorNames = []string{
 	_PaletteColorName[89:98],
 	_PaletteColorName[98:102],
 	_PaletteColorName[102:110],
+	_PaletteColorName[110:121],
 }
 
 func PaletteColorNames() []string {
@@ -91,6 +94,7 @@ var _PaletteColorMap = map[PaletteColor]string{
 	14: _PaletteColorName[89:98],
 	15: _PaletteColorName[98:102],
 	16: _PaletteColorName[102:110],
+	17: _PaletteColorName[110:121],
 }
 
 func (i PaletteColor) String() string {
@@ -118,6 +122,7 @@ var _PaletteColorValue = map[string]PaletteColor{
 	_PaletteColorName[89:98]:   14,
 	_PaletteColorName[98:102]:  15,
 	_PaletteColorName[102:110]: 16,
+	_PaletteColorName[110:121]: 17,
 }
 
 // ParsePaletteColor attempts to convert a string to a PaletteColor

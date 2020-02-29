@@ -7,15 +7,24 @@ import (
 
 type RGB color.RGBA
 
-func (l RGB) RGB() RGB {
-	return l
+func (rc RGB) RGB() RGB {
+	return rc
 }
 
-func (rgb RGB) HSV() HSV {
+func (rc RGB) Lerp(to Color, t float32) RGB {
+	target := FromColor(to).RGB()
+	rc.R += uint8(float32(target.R - rc.R) * t)
+	rc.G += uint8(float32(target.G - rc.G) * t)
+	rc.B += uint8(float32(target.B - rc.B) * t)
+	rc.A += uint8(float32(target.A - rc.A) * t)
+	return rc
+}
 
-	red := float64(rgb.R)
-	green := float64(rgb.G)
-	blue := float64(rgb.B)
+func (rc RGB) HSV() HSV {
+
+	red := float64(rc.R)
+	green := float64(rc.G)
+	blue := float64(rc.B)
 
 	var max = math.Max(math.Max(red, green), blue)
 	var min = math.Min(math.Min(red, green), blue)
@@ -51,28 +60,28 @@ func (rgb RGB) HSV() HSV {
 	}
 }
 
-func (c RGB) Lightness() uint8 {
+func (rc RGB) Lightness() uint8 {
 	max := uint8(0)
-	if c.R > max {
-		max = c.R
+	if rc.R > max {
+		max = rc.R
 	}
-	if c.G > max {
-		max = c.G
+	if rc.G > max {
+		max = rc.G
 	}
-	if c.B > max {
-		max = c.B
+	if rc.B > max {
+		max = rc.B
 	}
 	return max
 }
 
-func (c RGB) RGBA() (r, g, b, a uint32) {
-	r = uint32(c.R)
+func (rc RGB) RGBA() (r, g, b, a uint32) {
+	r = uint32(rc.R)
 	r |= r << 8
-	g = uint32(c.G)
+	g = uint32(rc.G)
 	g |= g << 8
-	b = uint32(c.B)
+	b = uint32(rc.B)
 	b |= b << 8
-	a = uint32(c.A)
+	a = uint32(rc.A)
 	a |= a << 8
 	return
 }
@@ -84,11 +93,11 @@ func (c RGB) RGBA() (r, g, b, a uint32) {
 //		0xffff
 //}
 
-func (c RGB) HSL() HSL {
+func (rc RGB) HSL() HSL {
 
-	r := c.R
-	g := c.G
-	b := c.B
+	r := rc.R
+	g := rc.G
+	b := rc.B
 
 	var fH, fS, fL float64
 
@@ -129,7 +138,7 @@ func (c RGB) HSL() HSL {
 	}
 }
 
-func (c RGB) Equal(r Color) bool {
+func (rc RGB) Equal(r Color) bool {
 	c2 := r.RGB()
-	return c.R*c.A == c2.R*c2.A && c.G*c.A == c2.G*c2.A && c.B*c.A == c2.B*c2.A
+	return rc.R*rc.A == c2.R*c2.A && rc.G*rc.A == c2.G*c2.A && rc.B*rc.A == c2.B*c2.A
 }

@@ -9,35 +9,62 @@ type HSV struct {
 	S, V uint8
 }
 
-func (l HSV) HSV() HSV {
-	return l
+func (hv HSV) HSV() HSV {
+	return hv
 }
 
-func (l HSV) IsSame(r HSV) bool {
-	return l.H == r.H && l.V == r.V && l.S == r.S
+func (hv HSV) Lerp(to HSV, t float32) HSV {
+	// Hue interpolation
+	h := float32(0)
+	d := float32(to.H - hv.H)
+
+	if hv.H > to.H {
+		hv.H, to.H = to.H, hv.H // Swap
+		d = -d
+		t = 1 - t
+	}
+
+	if d > 180 { // 180deg
+		hv.H = 360 - hv.H // 360deg
+		h = (float32(hv.H) + t * float32(to.H - hv.H)) // 360deg
+		h = float32(uint16(h) % 360)
+	}
+	if d <= 180 { // 180deg
+		h = float32(hv.H) + t * d
+	}
+
+	return HSV{
+		H: uint16(h),
+		S: uint8(float32(hv.S) + t * float32(to.S - hv.S)),
+		V: uint8(float32(hv.V) + t * float32(to.V - hv.V)),
+	}
 }
 
-func (c HSV) Equal(col Color) bool {
-	return c.RGB().Equal(col)
+func (hv HSV) IsSame(r HSV) bool {
+	return hv.H == r.H && hv.V == r.V && hv.S == r.S
 }
 
-func (c HSV) RGBA() (r, g, b, a uint32) {
-	return c.RGB().RGBA()
+func (hv HSV) Equal(col Color) bool {
+	return hv.RGB().Equal(col)
 }
 
-func (c HSV) HSL() HSL {
+func (hv HSV) RGBA() (r, g, b, a uint32) {
+	return hv.RGB().RGBA()
+}
+
+func (hv HSV) HSL() HSL {
 	// todo optimise this
-	return c.RGB().HSL()
+	return hv.RGB().HSL()
 }
 
-func (c HSV) RGB() RGB {
+func (hv HSV) RGB() RGB {
 	var red, green, blue float64
 
-	h := float64(c.H)
-	s := float64(c.S) / 100.
-	b := float64(c.V) / 100 * 255.
+	h := float64(hv.H)
+	s := float64(hv.S) / 100.
+	b := float64(hv.V) / 100 * 255.
 
-	if c.S == 0 {
+	if hv.S == 0 {
 		val := uint8(b)
 		return RGB{
 			val, val, val, 255,

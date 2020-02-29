@@ -25,6 +25,7 @@ import (
 // LightGray,
 // Gray,
 // DarkGray,
+// Transparent,
 // )
 type PaletteColor int
 
@@ -47,6 +48,10 @@ func FromColor(c color.Color) Color {
 		B: uint8(b >> 8),
 		A: uint8(a >> 8),
 	}
+}
+
+func (c PaletteColor) Lerp(to Color, t float32) Color {
+	return c.RGB().Lerp(FromColor(to).RGB(), t)
 }
 
 func (c PaletteColor) Equal(col Color) bool {
@@ -92,6 +97,6 @@ func Colors() []PaletteColor {
 	return cols
 }
 
-func (l RGB) IsSame(r RGB) bool {
-	return l.R == r.R && l.G == r.G && l.B == r.B
+func (rc RGB) IsSame(r RGB) bool {
+	return rc.R == r.R && rc.G == r.G && rc.B == r.B
 }
