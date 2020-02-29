@@ -13,10 +13,10 @@ func (rc RGB) RGB() RGB {
 
 func (rc RGB) Lerp(to Color, t float32) RGB {
 	target := FromColor(to).RGB()
-	rc.R += uint8(float32(target.R - rc.R) * t)
-	rc.G += uint8(float32(target.G - rc.G) * t)
-	rc.B += uint8(float32(target.B - rc.B) * t)
-	rc.A += uint8(float32(target.A - rc.A) * t)
+	rc.R += uint8(float32(target.R-rc.R) * t)
+	rc.G += uint8(float32(target.G-rc.G) * t)
+	rc.B += uint8(float32(target.B-rc.B) * t)
+	rc.A += uint8(float32(target.A-rc.A) * t)
 	return rc
 }
 

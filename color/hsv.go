@@ -25,18 +25,18 @@ func (hv HSV) Lerp(to HSV, t float32) HSV {
 	}
 
 	if d > 180 { // 180deg
-		hv.H = 360 - hv.H // 360deg
-		h = (float32(hv.H) + t * float32(to.H - hv.H)) // 360deg
+		hv.H = 360 - hv.H                          // 360deg
+		h = (float32(hv.H) + t*float32(to.H-hv.H)) // 360deg
 		h = float32(uint16(h) % 360)
 	}
 	if d <= 180 { // 180deg
-		h = float32(hv.H) + t * d
+		h = float32(hv.H) + t*d
 	}
 
 	return HSV{
 		H: uint16(h),
-		S: uint8(float32(hv.S) + t * float32(to.S - hv.S)),
-		V: uint8(float32(hv.V) + t * float32(to.V - hv.V)),
+		S: uint8(float32(hv.S) + t*float32(to.S-hv.S)),
+		V: uint8(float32(hv.V) + t*float32(to.V-hv.V)),
 	}
 }
 

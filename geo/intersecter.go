@@ -62,7 +62,7 @@ func intersect(g1 Geometry, g2 Geometry) bool {
 	fct, ok := dispatch[key]
 
 	if !ok {
-		log.Sugar().Error("unsupported intersection:", key)
+		//log.Sugar().Error("unsupported intersection:", key)
 		return false
 	}
 
