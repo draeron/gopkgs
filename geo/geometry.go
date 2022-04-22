@@ -22,4 +22,4 @@ type Geometry interface {
 	bounds() *geom.Bounds
 }
 
-var log = logger.New("geometry")
+var log = logger.NewLogrus("geometry")

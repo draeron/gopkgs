@@ -1,7 +1,6 @@
 package color
 
 import (
-	"github.com/draeron/gopkgs/logger"
 	"image/color"
 )
 
@@ -28,8 +27,6 @@ import (
 // Transparent,
 // )
 type PaletteColor int
-
-var log = logger.New("color")
 
 type Color interface {
 	HSL() HSL
@@ -64,7 +61,7 @@ func (c PaletteColor) RGBA() (r, g, b, a uint32) {
 
 func (c PaletteColor) HSL() HSL {
 	if int(c) >= len(Palette) {
-		log.Warn("invalid color index: ", c)
+		log.Warnf("invalid color index: ", c)
 		return Palette[Black].HSL()
 	} else {
 		return Palette[c].HSL()
@@ -73,7 +70,7 @@ func (c PaletteColor) HSL() HSL {
 
 func (c PaletteColor) HSV() HSV {
 	if int(c) >= len(Palette) {
-		log.Warn("invalid color index: ", c)
+		log.Warnf("invalid color index: ", c)
 		return Palette[Black].HSV()
 	} else {
 		return Palette[c].HSV()
@@ -82,7 +79,7 @@ func (c PaletteColor) HSV() HSV {
 
 func (c PaletteColor) RGB() RGB {
 	if int(c) >= len(Palette) {
-		log.Warn("invalid color index: ", c)
+		log.Warnf("invalid color index: ", c)
 		return Palette[Black].RGB()
 	} else {
 		return Palette[c].RGB()
