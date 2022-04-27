@@ -2,6 +2,7 @@ package color
 
 import (
 	"image/color"
+	"sort"
 )
 
 //go:generate go-enum -f=$GOFILE --noprefix --names
@@ -91,6 +92,9 @@ func Colors() []PaletteColor {
 	for cl, _ := range _PaletteColorMap {
 		cols = append(cols, cl)
 	}
+	sort.Slice(cols, func(i, j int) bool {
+		return cols[i] < cols[j]
+	})
 	return cols
 }
 
