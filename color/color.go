@@ -37,7 +37,7 @@ type Color interface {
 	Equal(c Color) bool
 }
 
-func FromColor(c color.Color) Color {
+func FromStdColor(c color.Color) Color {
 	r, g, b, a := c.RGBA()
 	// Convert 16 bits channel to 8 bits
 	return RGB{
@@ -49,7 +49,7 @@ func FromColor(c color.Color) Color {
 }
 
 func (c PaletteColor) Lerp(to Color, t float32) Color {
-	return c.RGB().Lerp(FromColor(to).RGB(), t)
+	return c.RGB().Lerp(FromStdColor(to).RGB(), t)
 }
 
 func (c PaletteColor) Equal(col Color) bool {

@@ -4,7 +4,7 @@ import "go.uber.org/zap"
 
 func (l *ZapLogger) LogIfErr(err error) {
 	if err != nil {
-		l.WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Error("error occured")
+		l.WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Error("error occurred")
 	}
 }
 
@@ -14,18 +14,18 @@ func (l *ZapLogger) Sugar() *SugaredLogger {
 
 func (l *ZapLogger) StopIfErr(err error) {
 	if err != nil {
-		l.WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Fatal("error occured")
+		l.WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Fatal("error occurred")
 	}
 }
 
 func (l *SugaredLogger) LogIfErr(err error) {
 	if err != nil {
-		l.Desugar().WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Error("error occured")
+		l.Desugar().WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Error("error occurred")
 	}
 }
 
 func (l *SugaredLogger) StopIfErr(err error) {
 	if err != nil {
-		l.Desugar().WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Fatal("error occured")
+		l.Desugar().WithOptions(zap.AddCallerSkip(1)).With(zap.Error(err)).Fatal("error occurred")
 	}
 }

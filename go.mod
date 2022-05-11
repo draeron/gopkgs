@@ -17,7 +17,6 @@ require (
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
-	github.com/bearsh/hid v1.4.0 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/stretchr/testify v1.5.1 // indirect
 	go.uber.org/multierr v1.3.0 // indirect

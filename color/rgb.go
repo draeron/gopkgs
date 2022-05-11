@@ -12,7 +12,7 @@ func (rc RGB) RGB() RGB {
 }
 
 func (rc RGB) Lerp(to Color, t float32) RGB {
-	target := FromColor(to).RGB()
+	target := FromStdColor(to).RGB()
 	rc.R += uint8(float32(target.R-rc.R) * t)
 	rc.G += uint8(float32(target.G-rc.G) * t)
 	rc.B += uint8(float32(target.B-rc.B) * t)
@@ -86,12 +86,12 @@ func (rc RGB) RGBA() (r, g, b, a uint32) {
 	return
 }
 
-//func (c RGB) RGBA() (r, g, b, a uint32) {
+// func (c RGB) RGBA() (r, g, b, a uint32) {
 //	return uint32(c.R) * 0xffff / 255,
 //		uint32(c.G) * 0xffff / 255,
 //		uint32(c.B) * 0xffff / 255,
 //		0xffff
-//}
+// }
 
 func (rc RGB) HSL() HSL {
 
