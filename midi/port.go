@@ -3,11 +3,12 @@ package midi
 import (
 	"github.com/pkg/errors"
 	"gitlab.com/gomidi/midi/v2"
+	"gitlab.com/gomidi/midi/v2/drivers"
 )
 
 type Port struct {
-	In   int
-	Out  int
+	In   drivers.In
+	Out  drivers.Out
 	send SendFunc
 	stop func()
 }

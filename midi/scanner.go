@@ -1,6 +1,7 @@
 package midi
 
 import (
+	"gitlab.com/gomidi/midi/v2"
 	"regexp"
 
 	"github.com/pkg/errors"
@@ -18,7 +19,10 @@ func DetectPort(inRx, outRx *regexp.Regexp) (*Port, error) {
 	}
 	for _, in := range ins {
 		if inRx.MatchString(in.String()) {
-			port.In = in.Number()
+			port.In, err = midi.InPort(in.Number())
+			if err != nil {
+				return nil, errors.WithStack(err)
+			}
 			log.Infof("matched midi IN: %s", in)
 		} else {
 			log.Debugf("ignored input device: %s", in)
@@ -31,11 +35,18 @@ func DetectPort(inRx, outRx *regexp.Regexp) (*Port, error) {
 	}
 	for _, out := range outs {
 		if outRx.MatchString(out.String()) {
-			port.Out = out.Number()
+			port.Out, err = midi.OutPort(out.Number())
+			if err != nil {
+				return nil, errors.WithStack(err)
+			}
 			log.Infof("matched midi OUT: %s", out)
 		} else {
 			log.Debugf("ignored output device: %s", out)
 		}
+	}
+
+	if port.In == nil || port.Out == nil {
+		return nil, errors.Errorf("failed to detect midi ports")
 	}
 
 	return &port, nil

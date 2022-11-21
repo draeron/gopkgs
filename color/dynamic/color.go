@@ -20,8 +20,20 @@ func (c *DynamicColor) RGBA() (r, g, b, A uint32) {
 	return uint32(c.current[0]), uint32(c.current[1]), uint32(c.current[2]), uint32(c.current[3])
 }
 
-func (c *DynamicColor) IsEqual(l *DynamicColor) bool {
-	return false
+func (c *DynamicColor) HSL() inner.HSL {
+	return inner.FromStdColor(c).HSL()
+}
+
+func (c *DynamicColor) HSV() inner.HSV {
+	return inner.FromStdColor(c).HSV()
+}
+
+func (c *DynamicColor) RGB() inner.RGB {
+	return inner.FromStdColor(c).RGB()
+}
+
+func (c *DynamicColor) Equal(col inner.Color) bool {
+	return inner.FromStdColor(c).Equal(col)
 }
 
 func Blend(old color.Color, target color.Color, duration time.Duration) *DynamicColor {
