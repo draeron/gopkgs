@@ -48,6 +48,19 @@ func FromStdColor(c color.Color) Color {
 	}
 }
 
+func FromInt32(c int32) Color {
+	return RGB{
+		R: uint8(c >> 16),
+		G: uint8(c >> 8),
+		B: uint8(c),
+		A: 0xff,
+	}
+}
+
+func ToRBGA(c Color) color.RGBA {
+	return color.RGBA(c.RGB())
+}
+
 func (c PaletteColor) Lerp(to Color, t float32) Color {
 	return c.RGB().Lerp(FromStdColor(to).RGB(), t)
 }
