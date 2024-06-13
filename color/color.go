@@ -41,20 +41,26 @@ func FromStdColor(c color.Color) Color {
 	r, g, b, a := c.RGBA()
 	// Convert 16 bits channel to 8 bits
 	return RGB{
-		R: uint8(r >> 8),
-		G: uint8(g >> 8),
-		B: uint8(b >> 8),
-		A: uint8(a >> 8),
+		R: uint8(r >> 1),
+		G: uint8(g >> 1),
+		B: uint8(b >> 1),
+		A: uint8(a >> 1),
 	}
 }
 
-func FromInt32(c int32) Color {
+func FromInt32(c int32) color.Color {
 	return RGB{
-		R: uint8(c >> 16),
-		G: uint8(c >> 8),
-		B: uint8(c),
-		A: 0xff,
+		R: uint8(c >> 24),
+		G: uint8(c >> 16),
+		B: uint8(c >> 8),
+		A: uint8(c),
 	}
+}
+
+func ToInt32(c color.Color) int32 {
+	r, g, b, a := c.RGBA()
+	// Convert 16 bits channel to 8 bits then pack into int32
+	return int32(r>>8)<<24 | int32(g>>8)<<16 | int32(b>>8)<<8 | int32(a>>8)
 }
 
 func ToRBGA(c Color) color.RGBA {
