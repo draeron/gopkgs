@@ -74,6 +74,18 @@ func (rc RGB) Lightness() uint8 {
 	return max
 }
 
+func (rc RGB) NRGBA() color.NRGBA {
+	if rc.A == 0 {
+		return color.NRGBA{}
+	}
+	return color.NRGBA{
+		R: uint8(uint32(rc.R) * 0xff / uint32(rc.A)),
+		G: uint8(uint32(rc.G) * 0xff / uint32(rc.A)),
+		B: uint8(uint32(rc.B) * 0xff / uint32(rc.A)),
+		A: rc.A,
+	}
+}
+
 func (rc RGB) RGBA() (r, g, b, a uint32) {
 	r = uint32(rc.R)
 	r |= r << 8
@@ -85,13 +97,6 @@ func (rc RGB) RGBA() (r, g, b, a uint32) {
 	a |= a << 8
 	return
 }
-
-// func (c RGB) RGBA() (r, g, b, a uint32) {
-//	return uint32(c.R) * 0xffff / 255,
-//		uint32(c.G) * 0xffff / 255,
-//		uint32(c.B) * 0xffff / 255,
-//		0xffff
-// }
 
 func (rc RGB) HSL() HSL {
 

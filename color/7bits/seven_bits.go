@@ -1,12 +1,18 @@
 package seven_bits
 
 import (
+	stdcolor "image/color"
+
 	"github.com/draeron/gopkgs/color"
 )
 
 // color in 7 bits
 type SevenColor struct {
 	R, G, B uint8
+}
+
+func (bc SevenColor) NRGBA() stdcolor.NRGBA {
+	return bc.RGB().NRGBA()
 }
 
 func (bc SevenColor) HSL() color.HSL {
@@ -35,7 +41,7 @@ func FromColor(color color.Color) SevenColor {
 }
 
 /*
-	Convert 7 to 16 bits channels
+Convert 7 to 16 bits channels
 */
 func (bc SevenColor) RGBA() (uint32, uint32, uint32, uint32) {
 	return uint32(bc.R) << 9, uint32(bc.G) << 9, uint32(bc.B) << 9, 0xffff

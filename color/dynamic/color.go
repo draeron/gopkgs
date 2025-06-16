@@ -14,6 +14,10 @@ type DynamicColor struct {
 	mutex   sync.Mutex
 }
 
+func (c *DynamicColor) NRGBA() color.NRGBA {
+	return c.RGB().NRGBA()
+}
+
 func (c *DynamicColor) RGBA() (r, g, b, A uint32) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()

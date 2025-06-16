@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-//go:generate go-enum -f=$GOFILE --noprefix --names
+// go tool github.com/abice/go-enum -f=$GOFILE --noprefix --names
 
 // Color x ENUM(
 // Red,
@@ -34,12 +34,13 @@ type Color interface {
 	HSV() HSV
 	RGB() RGB
 	RGBA() (r, g, b, a uint32)
+	NRGBA() color.NRGBA
 	Equal(c Color) bool
 }
 
 func FromStdColor(c color.Color) Color {
 	r, g, b, a := c.RGBA()
-	// Convert 16 bits channel to 8 bits
+	// Convert a 16-bit channel to 8 bits
 	return RGB{
 		R: uint8(r >> 1),
 		G: uint8(g >> 1),
@@ -59,7 +60,7 @@ func FromInt32(c int32) color.Color {
 
 func ToInt32(c color.Color) int32 {
 	r, g, b, a := c.RGBA()
-	// Convert 16 bits channel to 8 bits then pack into int32
+	// Convert 16-bit channel to 8 bits then pack into int32
 	return int32(r>>8)<<24 | int32(g>>8)<<16 | int32(b>>8)<<8 | int32(a>>8)
 }
 
@@ -73,6 +74,10 @@ func (c PaletteColor) Lerp(to Color, t float32) Color {
 
 func (c PaletteColor) Equal(col Color) bool {
 	return c.RGB().Equal(col)
+}
+
+func (c PaletteColor) NRGBA() color.NRGBA {
+	return c.RGB().NRGBA()
 }
 
 func (c PaletteColor) RGBA() (r, g, b, a uint32) {

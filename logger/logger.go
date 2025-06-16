@@ -6,7 +6,7 @@ import (
 )
 
 /*
-  This match the signature of go.uber.org/zap sugarred logger
+This match the signature of go.uber.org/zap sugarred logger
 */
 type Logger interface {
 	Debugf(template string, args ...interface{})
